@@ -7,42 +7,30 @@ namespace PizzaBox.Domain.Models
   public class Pizza
   {
     public long PizzaId { get; set; }
-    public string Name { get; set; }
-    public decimal Price
+    
+    public decimal Cost
     {
       get
       {
-        if (Crust == null || Size == null || Toppings == null)
+        if (PizzaType == null || Size == null)
         {
           return 0;
         }
 
-        return Crust.Price + Size.Price + Toppings.Sum(t => t.Price);
-
-        // foreach (var t in Toppings)
-        // {
-        //   _price += t.Price;
-        // }
-
-        // return _price;
+        return PizzaType.Cost + Size.Cost;
       }
     }
 
     #region Navigational Properties
-    public Crust Crust { get; set; }
+    public PizzaType PizzaType { get; set; }
+    public Order Order { get; set; }
     public Size Size { get; set; }
-    public List<Topping> Toppings { get; set; }
 
     #endregion
 
-    public Pizza()
-    {
-      PizzaId = DateTime.Now.Ticks;
-    }
-
     public override string ToString()
     {
-      return $"{PizzaId} {Name ?? "N/A"} {Price} {Crust.Name ?? "N/A"} {Size.Name ?? "N/A"} {Toppings.Count}";
+      return $"{PizzaId} {PizzaType} {Cost} {Size.Name ?? "N/A"} ";
     }
-  } 
+  }
 }

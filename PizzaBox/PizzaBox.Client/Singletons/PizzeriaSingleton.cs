@@ -12,24 +12,17 @@ namespace PizzaBox.Client.Singletons
     public static PizzeriaSingleton Instance { get { return _ps; } }
     private PizzeriaSingleton() {}
 
-    public List<Pizza> Get(string user, string store)
-    {
-      return _pr.Get().Where(p => p.Name == user).ToList();
-    }
-
     public List<Pizza> Get()
     {
       return _pr.Get();
     }
 
-    public bool Post(Crust crust, Size size, List<Topping> toppings)
+    public bool Post(PizzaType pizzaType, Size size)
     {
-      var p = new Pizza()
-      {
-        Crust = crust,
-        Size = size,
-        Toppings = toppings
-      };
+      var p = new Pizza();
+
+      pizzaType.Pizzas = new List<Pizza> { p }; // p.crust = *crustId
+      size.Pizzas = new List<Pizza> { p };
 
       return _pr.Post(p);
     }

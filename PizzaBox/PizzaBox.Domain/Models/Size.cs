@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using PizzaBox.Domain.Abstracts;
 
 namespace PizzaBox.Domain.Models
@@ -7,9 +8,11 @@ namespace PizzaBox.Domain.Models
   {
     public long SizeId { get; set; }
 
-    public Size()
+    public List<Pizza> Pizzas { get; set; }
+
+    public override string ToString()
     {
-      SizeId = DateTime.Now.Ticks;
+      return $"{SizeId} {Name ?? "N/A"} {Cost}";
     }
   }
 }

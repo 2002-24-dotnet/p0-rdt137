@@ -6,31 +6,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace PizzaBox.Storing.Repositories
 {
-  public class PizzaRepository
+  public class SizeRepository
   {
     private static PizzaBoxDbContext db = new PizzaBoxDbContext();
     private static PizzaBoxDbContext _db = db.Instance;
-    public List<Pizza> Get()
+    public List<Size> Get()
     {
-      return _db.Pizza.ToList();
+      return _db.Size.ToList();
     }
 
-    public Pizza Get(long id)
+    public Size Get(long id)
     {
-      return _db.Pizza.SingleOrDefault(p => p.PizzaId == id);
+      return _db.Size.SingleOrDefault(s => s.SizeId == id);
     }
 
-    public bool Post(Pizza pizza)
+    public bool Post(Size size)
     {
-      _db.Pizza.Add(pizza);
+      _db.Size.Add(size);
       return _db.SaveChanges() == 1;
     }
 
-    public bool Put(Pizza pizza)
+    public bool Put(Size size)
     {
-      Pizza p = Get(pizza.PizzaId);
+      Size s = Get(size.SizeId);
 
-      p = pizza;
+      s = size;
       return _db.SaveChanges() == 1;
     }
   }
