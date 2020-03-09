@@ -2,7 +2,7 @@
 
 namespace PizzaBox.Storing.Migrations
 {
-    public partial class migration4 : Migration
+    public partial class migration6 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,6 +91,7 @@ namespace PizzaBox.Storing.Migrations
                 {
                     PizzaId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Cost = table.Column<decimal>(nullable: false),
                     PizzaTypeTypeId = table.Column<long>(nullable: true),
                     OrderId = table.Column<long>(nullable: true),
                     SizeId = table.Column<long>(nullable: true)

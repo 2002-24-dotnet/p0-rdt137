@@ -3,35 +3,34 @@ using System.Collections.Generic;
 using PizzaBox.Storing.Databases;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using PizzaBox.Domain.Interfaces;
 
 namespace PizzaBox.Storing.Repositories
 {
-  public class PizzaRepository
+  public class StoreRepository
   {
     private static PizzaBoxDbContext db = new PizzaBoxDbContext();
     private static PizzaBoxDbContext _db = db.Instance;
-    public List<Pizza> Get()
+    public List<Store> Get()
     {
-      return _db.Pizza.ToList();
+      return _db.Store.ToList();
     }
 
-    public Pizza Get(long id)
+    public Store Get(string id)
     {
-      return _db.Pizza.SingleOrDefault(p => p.PizzaId == id);
+      return _db.Store.SingleOrDefault(s => s.Location == id);
     }
 
-    public bool Update(Pizza pizza)
+    public bool Post(Store store)
     {
-      _db.Pizza.Add(pizza);
+      _db.Store.Add(store);
       return _db.SaveChanges() == 1;
     }
 
-    public bool Put(Pizza pizza)
+    public bool Put(Store store)
     {
-      Pizza p = Get(pizza.PizzaId);
+      Store s = Get(store.Location);
 
-      p = pizza;
+      s = store;
       return _db.SaveChanges() == 1;
     }
   }

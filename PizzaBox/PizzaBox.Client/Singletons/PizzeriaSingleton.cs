@@ -17,14 +17,16 @@ namespace PizzaBox.Client.Singletons
       return _pr.Get();
     }
 
-    public bool Post(PizzaType pizzaType, Size size)
+    public bool Update(PizzaType pizzaType, Size size, Order order)
     {
       var p = new Pizza();
 
       pizzaType.Pizzas = new List<Pizza> { p }; // p.crust = *crustId
       size.Pizzas = new List<Pizza> { p };
+      //p.Cost = pizzaType.Cost + size.Cost;
+      p.Order = order;
 
-      return _pr.Post(p);
+      return _pr.Update(p);
     }
   }
 }

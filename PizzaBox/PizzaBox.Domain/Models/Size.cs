@@ -7,12 +7,16 @@ namespace PizzaBox.Domain.Models
   public class Size : APizzaComponent
   {
     public long SizeId { get; set; }
-
     public List<Pizza> Pizzas { get; set; }
 
     public override string ToString()
     {
-      return $"{SizeId} {Name ?? "N/A"} {Cost}";
+      return $"{Name ?? "N/A"}";
+    }
+
+    public string GetCost()
+    {
+      return $"{Cost}";
     }
   }
 }

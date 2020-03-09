@@ -8,12 +8,12 @@ namespace PizzaBox.Domain.Models
     public long OrderId { get; set; }    
     public Store Location { get; set; }    
     public User User { get; set; }
+    //public Pizza Pizza { get; set; }
     public List<Pizza> Pizzas { get; set; }    
 
     
     public Order()
     {
-      OrderId = DateTime.Now.Ticks;
     }
   }
 }

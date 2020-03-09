@@ -6,20 +6,8 @@ namespace PizzaBox.Domain.Models
 {
   public class Pizza
   {
-    public long PizzaId { get; set; }
-    
-    public decimal Cost
-    {
-      get
-      {
-        if (PizzaType == null || Size == null)
-        {
-          return 0;
-        }
-
-        return PizzaType.Cost + Size.Cost;
-      }
-    }
+    public long PizzaId { get; set; }    
+    public decimal Cost { get; set; }
 
     #region Navigational Properties
     public PizzaType PizzaType { get; set; }
@@ -30,7 +18,7 @@ namespace PizzaBox.Domain.Models
 
     public override string ToString()
     {
-      return $"{PizzaId} {PizzaType} {Cost} {Size.Name ?? "N/A"} ";
+      return $"{PizzaId} {PizzaType.TypeId} {Cost} {Size.SizeId}";
     }
   }
 }

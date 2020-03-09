@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PizzaBox.Storing.Databases;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using PizzaBox.Domain.Interfaces;
 
 namespace PizzaBox.Storing.Repositories
 {
@@ -20,8 +21,8 @@ namespace PizzaBox.Storing.Repositories
       return _db.Order.SingleOrDefault(o => o.OrderId == id);
     }
 
-    public bool Post(Order order)
-    {
+    public bool Update(Order order)
+    {      
       _db.Order.Add(order);
       return _db.SaveChanges() == 1;
     }

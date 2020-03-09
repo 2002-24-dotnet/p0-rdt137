@@ -11,9 +11,14 @@ namespace PizzaBox.Domain.Models
     
     public List<Order> Orders { get; set; }
     
-    public User()
+    public string ToString(int i)
     {
-      
+      if(i == 1)
+        return $"{UserId ?? "N/A"}";
+      else if(i == 2)
+        return $"{Password ?? "N/A"}";
+      else
+        return String.Empty;
     }
   }
 }

@@ -7,5 +7,10 @@ namespace PizzaBox.Domain.Models
   {  
     public string Location { get; set; }
     public List<Order> Orders { get; set; }
+
+    public override string ToString()
+    {
+      return $"{Location ?? "N/A"}";
+    }
   }
 }
