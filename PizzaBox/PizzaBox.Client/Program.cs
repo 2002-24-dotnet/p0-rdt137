@@ -55,18 +55,3 @@ namespace PizzaBox.Client
     }    
   }
 }
-      
-      
-      
-      
-      // var sizes = new List<Size>();
-      // using (_db)
-      // {       
-      //   sizes = (from s in _db.Size
-      //              where s.Cost < 11
-      //              select s).ToList();
-      // }
-      // foreach (var record in sizes)
-      // {
-      //   Console.WriteLine(record);
-      // }

@@ -42,14 +42,16 @@ namespace PizzaBox.Storing.Databases
 
       builder.Entity<User>().HasData(new User[]
       {
-        new User() { UserId = "user1", Password = "123", UserType = "Customer"},
-        new User() { UserId = "user2", Password = "234", UserType = "Admin"},
-        new User() { UserId = "user3", Password = "345", UserType = "Customer"}
+        new User() { UserId = "alex", Password = "123", UserType = "Customer"},
+        new User() { UserId = "isaiah", Password = "234", UserType = "Customer"},
+        new User() { UserId = "nick", Password = "345", UserType = "Customer"},
+        new User() { UserId = "roby", Password = "456", UserType = "Admin"},
+        new User() { UserId = "fred", Password = "567", UserType = "Admin"}
       });
 
       builder.Entity<Store>().HasData(new Store[]
       {
-        new Store() { Location = "Cooper"},
+        new Store() { Location = "S Cooper St"},
         new Store() { Location = "S West St"},
         new Store() { Location = "W Mitchell St"}
       });

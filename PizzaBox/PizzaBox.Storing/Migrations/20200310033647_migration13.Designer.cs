@@ -10,8 +10,8 @@ using PizzaBox.Storing.Databases;
 namespace PizzaBox.Storing.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    [Migration("20200309225254_migration11")]
-    partial class migration11
+    [Migration("20200310033647_migration13")]
+    partial class migration13
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,7 +173,7 @@ namespace PizzaBox.Storing.Migrations
                     b.HasData(
                         new
                         {
-                            Location = "Cooper"
+                            Location = "S Cooper St"
                         },
                         new
                         {
@@ -203,21 +203,33 @@ namespace PizzaBox.Storing.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "user1",
+                            UserId = "alex",
                             Password = "123",
                             UserType = "Customer"
                         },
                         new
                         {
-                            UserId = "user2",
+                            UserId = "isaiah",
                             Password = "234",
+                            UserType = "Customer"
+                        },
+                        new
+                        {
+                            UserId = "nick",
+                            Password = "345",
+                            UserType = "Customer"
+                        },
+                        new
+                        {
+                            UserId = "roby",
+                            Password = "456",
                             UserType = "Admin"
                         },
                         new
                         {
-                            UserId = "user3",
-                            Password = "345",
-                            UserType = "Customer"
+                            UserId = "fred",
+                            Password = "567",
+                            UserType = "Admin"
                         });
                 });
 

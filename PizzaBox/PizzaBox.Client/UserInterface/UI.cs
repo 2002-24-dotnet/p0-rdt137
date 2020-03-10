@@ -30,22 +30,31 @@ namespace PizzaBox.Client.UserInterface
       Console.WriteLine("\n\nWelcome to Papa's Pizzas");
       
       var userLoc = 0;
-      while(userLoc != 1 && userLoc != 2 && userLoc != 3)
+      var userD = _us.Get(username);
+      var oDate = _o.Get(userD);
+      TimeSpan span = new TimeSpan();
+      try
       {        
-        var userD = _us.Get(username);
-        var oDate = _o.Get(userD);
-        TimeSpan span = DateTime.Now.Subtract(oDate.GetDate());
-        if(span.Hours < 24)
+        span = DateTime.Now.Subtract(oDate.GetDate());
+      }
+      catch(Exception) {}
+      
+      while(userLoc != 1 && userLoc != 2 && userLoc != 3)
+      {             
+        try
         {
           Console.WriteLine("You can only order from {0} in the next {1} hours", oDate.GetLocation(), 24 - span.Hours);
-        }  
+        }
+        catch (Exception) {}
+        
         for(int i = 0; i < loc.Count; i++)
         {
-          Console.Write("({0}) {1} \t", i + 1, loc[i]);
+          Console.Write("\n({0}) {1} \t", i + 1, loc[i]);
         }
         Console.WriteLine("\n");
         int.TryParse(Console.ReadLine(), out userLoc );
       }
+        
       // set store location based on answer
       var typeId = new SortedList();
       var sizeId = new SortedList();
@@ -54,6 +63,16 @@ namespace PizzaBox.Client.UserInterface
       var ans2 = 0;      
       while(ans2 != 3)
       {
+        try
+        {
+          if(span.Hours < 24 && !(oDate.GetLocation() == loc[userLoc - 1]))
+          {
+            Console.WriteLine("Can't order from this store.");
+            break;
+          } 
+        }
+        catch(Exception) {}
+
         Console.WriteLine("\n(1) Add Pizza");
         Console.WriteLine("(2) Remove Pizza");
         Console.WriteLine("(3) Checkout");
@@ -219,40 +238,90 @@ namespace PizzaBox.Client.UserInterface
 
     public static void AdminUI()
     {
-      //order history
-      var orders = from o in _db.Order
-                    select new {o.OrderId, o.User, o.Location};
-      foreach (var order in orders)
-      {
-        Console.WriteLine(order);
-      }
+      StoreUI stUI = new StoreUI();      
+      stUI.Get();   
 
-      //pizzas for specified order
-      Order oId = _o.Get(2);
-      var pizzas = from p in _db.Pizza
-                  where p.Order == oId
-                  select new {p.PizzaType, p.Size, p.Cost, p.Order};
-      foreach (var pizza in pizzas)
+      var loc2 = StoreUI.locations;
+      
+      var adminLoc = 0;
+      for(int i = 0; i < loc2.Count; i++)
       {
-        Console.WriteLine(pizza);
+        Console.Write("\n({0}) {1} \t", i + 1, loc2[i]);
       }
-
-      // pizza cost per order
-      var orderCost = new decimal[_o.Get().Count];
-      for(int i = 0; i < _o.Get().Count; i++)
-      {
-        var id = _o.Get(i + 1);
-        var pizzaCosts = from p in _db.Pizza
-                        where p.Order == id
-                        select p.Cost;//{p.PizzaType, p.Size, p.Cost, p.Order};
-        foreach (var pizza in pizzaCosts)
-        {
-          orderCost[i] += pizza;
+      Console.WriteLine("\n");
+      int.TryParse(Console.ReadLine(), out adminLoc );
+      
+      var adminAns = 0;
+      while(adminAns != 4)
+      {  
+        Console.WriteLine("\n(1) Order History");
+        Console.WriteLine("(2) Pizzas for specified order (regardless of store)");
+        Console.WriteLine("(3) Cost per order (regardless of store)");
+        Console.WriteLine("(4) Exit\n");
+        int.TryParse(Console.ReadLine(), out adminAns );
+        
+        //order history
+        if(adminAns == 1)
+        {          
+          var store = _st.Get();
+          var orders = from o in _db.Order
+                        where o.Location == store[adminLoc - 1]
+                        select new {o.OrderId, o.Cost, o.OrderDate, o.User, o.Location};
+          foreach (var order in orders)
+          {
+            Console.WriteLine(order);
+          }
+          Console.ReadKey();
         }
-      }
-      for(int i = 0; i < _o.Get().Count; i++)
-      {
-        Console.WriteLine("{0}\tOrderCost: {1}", _o.Get()[i], orderCost[i]);
+
+        //pizzas for specified order
+        if(adminAns == 2)
+        {
+          var spOrder = 0;
+          Console.WriteLine("Enter a specific order: ");
+          int.TryParse(Console.ReadLine(), out spOrder );
+          Order oId;
+          try
+          {
+            oId = _o.Get(spOrder);
+          }
+          catch(Exception)
+          {
+            Console.WriteLine("Wrong input");
+            break;
+          }
+          
+          var pizzas = from p in _db.Pizza
+                      where p.Order == oId
+                      select new {p.PizzaType, p.Size, p.Cost, p.Order};
+          foreach (var pizza in pizzas)
+          {
+            Console.WriteLine(pizza);
+          }
+          Console.ReadKey();
+        }
+
+        // pizza cost per order
+        if(adminAns == 3)
+        {          
+          var orderCost = new decimal[_o.Get().Count];
+          for(int i = 0; i < _o.Get().Count; i++)
+          {
+            var id = _o.Get(i + 1);
+            var pizzaCosts = from p in _db.Pizza
+                            where p.Order == id
+                            select p.Cost;
+            foreach (var pizza in pizzaCosts)
+            {
+              orderCost[i] += pizza;
+            }
+          }
+          for(int i = 0; i < _o.Get().Count; i++)
+          {
+            Console.WriteLine("{0}\t\tOrderCost: {1}", _o.Get()[i], orderCost[i]);
+          }
+          Console.ReadKey();
+        }
       }
     }
   }

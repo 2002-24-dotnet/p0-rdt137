@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaBox.Storing.Migrations
 {
-    public partial class migration11 : Migration
+    public partial class migration13 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -147,7 +147,7 @@ namespace PizzaBox.Storing.Migrations
                 column: "Location",
                 values: new object[]
                 {
-                    "Cooper",
+                    "S Cooper St",
                     "S West St",
                     "W Mitchell St"
                 });
@@ -157,9 +157,11 @@ namespace PizzaBox.Storing.Migrations
                 columns: new[] { "UserId", "Password", "UserType" },
                 values: new object[,]
                 {
-                    { "user1", "123", "Customer" },
-                    { "user2", "234", "Admin" },
-                    { "user3", "345", "Customer" }
+                    { "alex", "123", "Customer" },
+                    { "isaiah", "234", "Customer" },
+                    { "nick", "345", "Customer" },
+                    { "roby", "456", "Admin" },
+                    { "fred", "567", "Admin" }
                 });
 
             migrationBuilder.CreateIndex(
