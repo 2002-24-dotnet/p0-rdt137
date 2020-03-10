@@ -10,8 +10,8 @@ using PizzaBox.Storing.Databases;
 namespace PizzaBox.Storing.Migrations
 {
     [DbContext(typeof(PizzaBoxDbContext))]
-    [Migration("20200309005525_migration6")]
-    partial class migration6
+    [Migration("20200309225254_migration11")]
+    partial class migration11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,8 +28,14 @@ namespace PizzaBox.Storing.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<decimal>("Cost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Location1")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -97,23 +103,23 @@ namespace PizzaBox.Storing.Migrations
                         new
                         {
                             TypeId = 1L,
-                            Cost = 8.00m,
-                            Crust = "Crust1",
-                            Name = "PepPizza"
+                            Cost = 8.50m,
+                            Crust = "Cheese Filled Crust",
+                            Name = "Pepperoni Pizza"
                         },
                         new
                         {
                             TypeId = 2L,
                             Cost = 7.00m,
-                            Crust = "Crust121",
-                            Name = "CheesePizza"
+                            Crust = "Thin Crust",
+                            Name = "Cheese Pizza"
                         },
                         new
                         {
                             TypeId = 3L,
-                            Cost = 10.00m,
-                            Crust = "Crust432",
-                            Name = "PinBacPizza"
+                            Cost = 10.25m,
+                            Crust = "Thick Crust",
+                            Name = "Pineapple Bacon Pizza"
                         });
                 });
 
@@ -138,8 +144,8 @@ namespace PizzaBox.Storing.Migrations
                         new
                         {
                             SizeId = 1L,
-                            Cost = 12.00m,
-                            Name = "Large"
+                            Cost = 8.00m,
+                            Name = "Small"
                         },
                         new
                         {
@@ -150,8 +156,8 @@ namespace PizzaBox.Storing.Migrations
                         new
                         {
                             SizeId = 3L,
-                            Cost = 8.00m,
-                            Name = "Small"
+                            Cost = 12.00m,
+                            Name = "Large"
                         });
                 });
 
@@ -172,6 +178,10 @@ namespace PizzaBox.Storing.Migrations
                         new
                         {
                             Location = "S West St"
+                        },
+                        new
+                        {
+                            Location = "W Mitchell St"
                         });
                 });
 
@@ -202,6 +212,12 @@ namespace PizzaBox.Storing.Migrations
                             UserId = "user2",
                             Password = "234",
                             UserType = "Admin"
+                        },
+                        new
+                        {
+                            UserId = "user3",
+                            Password = "345",
+                            UserType = "Customer"
                         });
                 });
 

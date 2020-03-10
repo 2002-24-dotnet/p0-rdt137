@@ -4,6 +4,7 @@ using PizzaBox.Storing.Databases;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using PizzaBox.Domain.Interfaces;
+using System;
 
 namespace PizzaBox.Storing.Repositories
 {
@@ -13,12 +14,25 @@ namespace PizzaBox.Storing.Repositories
     private static PizzaBoxDbContext _db = db.Instance;
     public List<Order> Get()
     {
-      return _db.Order.Include(o => o.OrderId).Include(o => o.User).Include(o => o.Location).ToList();
+      return _db.Order.ToList();
     }
 
     public Order Get(long id)
     {
       return _db.Order.SingleOrDefault(o => o.OrderId == id);
+    }
+
+    public Order Get(User user)
+    {
+      try
+      {
+        return _db.Order.ToArray().LastOrDefault(o => o.User == user);
+      }
+      catch(Exception)
+      {
+        Console.WriteLine("Error");
+        return _db.Order.FirstOrDefault(o => o.User == user);
+      }
     }
 
     public bool Update(Order order)

@@ -17,8 +17,13 @@ namespace PizzaBox.Domain.Models
     #endregion
 
     public override string ToString()
+    {      
+      return $"{PizzaId} {PizzaType.Name ?? "n/a"} {Cost} {Size.Name ?? "n/a"}";
+    }
+
+    public string ToCost()
     {
-      return $"{PizzaId} {PizzaType.TypeId} {Cost} {Size.SizeId}";
+      return $"{Cost}";
     }
   }
 }

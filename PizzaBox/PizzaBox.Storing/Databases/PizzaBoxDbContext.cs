@@ -35,63 +35,33 @@ namespace PizzaBox.Storing.Databases
 
       builder.Entity<PizzaType>().HasData(new PizzaType[]
       {
-        new PizzaType() { TypeId = 1, Name = "PepPizza", Crust = "Crust1", Cost = 8.00M },
-        new PizzaType() { TypeId = 2, Name = "CheesePizza", Crust = "Crust121", Cost = 7.00M },
-        new PizzaType() { TypeId = 3, Name = "PinBacPizza", Crust = "Crust432", Cost = 10.00M },
+        new PizzaType() { TypeId = 1, Name = "Pepperoni Pizza", Crust = "Cheese Filled Crust", Cost = 8.50M },
+        new PizzaType() { TypeId = 2, Name = "Cheese Pizza", Crust = "Thin Crust", Cost = 7.00M },
+        new PizzaType() { TypeId = 3, Name = "Pineapple Bacon Pizza", Crust = "Thick Crust", Cost = 10.25M },
       });
 
       builder.Entity<User>().HasData(new User[]
       {
         new User() { UserId = "user1", Password = "123", UserType = "Customer"},
-        new User() { UserId = "user2", Password = "234", UserType = "Admin"}
+        new User() { UserId = "user2", Password = "234", UserType = "Admin"},
+        new User() { UserId = "user3", Password = "345", UserType = "Customer"}
       });
 
       builder.Entity<Store>().HasData(new Store[]
       {
         new Store() { Location = "Cooper"},
-        new Store() { Location = "S West St"}
+        new Store() { Location = "S West St"},
+        new Store() { Location = "W Mitchell St"}
       });
 
       builder.Entity<Size>().HasData(new Size[]
       {
-        new Size() { SizeId = 1, Name = "Large", Cost = 12.00M },
+        new Size() { SizeId = 1, Name = "Small", Cost = 8.00M },
         new Size() { SizeId = 2, Name = "Medium", Cost = 10.00M },
-        new Size() { SizeId = 3, Name = "Small", Cost = 8.00M },
+        new Size() { SizeId = 3, Name = "Large", Cost = 12.00M }
+        
+        
       });
-      
-      
-      // builder.Entity<Crust>().HasKey(c => c.CrustId);
-      // builder.Entity<Pizza>().HasKey(p => p.PizzaId);
-      // builder.Entity<PizzaTopping>().HasKey(pt => new { pt.PizzaId, pt.ToppingId });
-      // builder.Entity<Size>().HasKey(s => s.SizeId);
-      // builder.Entity<Topping>().HasKey(t => t.ToppingId);
-
-      // builder.Entity<Crust>().HasMany(c => c.Pizzas).WithOne(p => p.Crust);
-      // builder.Entity<Pizza>().HasMany(p => p.PizzaToppings).WithOne(pt => pt.Pizza).HasForeignKey(pt => pt.PizzaId);
-      // builder.Entity<Size>().HasMany(s => s.Pizzas).WithOne(p => p.Size);
-      // builder.Entity<Topping>().HasMany(t => t.PizzaToppings).WithOne(pt => pt.Topping).HasForeignKey(pt => pt.ToppingId);
-
-
-      // builder.Entity<Crust>().HasData(new Crust[]
-      // {
-      //   new Crust() { Name = "Deep Dish", Price = 3.50M },
-      //   new Crust() { Name = "New York Style", Price = 2.50M },
-      //   new Crust() { Name = "Thin Crust", Price = 1.50M }
-      // });
-
-      // builder.Entity<Size>().HasData(new Size[]
-      // {
-      //   new Size() { Name = "Large", Price = 12.00M },
-      //   new Size() { Name = "Medium", Price = 10.00M },
-      //   new Size() { Name = "Small", Price = 8.00M },
-      // });
-
-      // builder.Entity<Topping>().HasData(new Topping[]
-      // {
-      //   new Topping() { Name = "Cheese", Price = 0.25M },
-      //   new Topping() { Name = "Pepperoni", Price = 0.50M },
-      //   new Topping() { Name = "Tomato Sauce", Price = 0.75M },
-      // });
     }
     private static readonly PizzaBoxDbContext _db = new PizzaBoxDbContext();
     public PizzaBoxDbContext Instance { get { return _db; } }

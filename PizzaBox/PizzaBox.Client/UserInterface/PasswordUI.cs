@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using PizzaBox.Client.Singletons;
 using PizzaBox.Domain.Interfaces;
+using PizzaBox.Domain.Models;
 
 namespace PizzaBox.Client.UserInterface
 {
@@ -16,9 +18,16 @@ namespace PizzaBox.Client.UserInterface
       }
     }
 
-    public void Update()
-    {
-      // next time :)
-    }
+    // public User AuthenticatePassword(string userId, string password)
+    // {
+    //   try
+    //   {
+    //     return _us.Check(userId, password);
+    //   }
+    //   catch(NullReferenceException)
+    //   {
+    //     return null;
+    //   }     
+    // }
   }
 }

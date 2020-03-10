@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using PizzaBox.Client.Singletons;
 using PizzaBox.Domain.Interfaces;
@@ -25,5 +26,17 @@ namespace PizzaBox.Client.UserInterface
         userModel.Add(us);
       }
     }
+
+    // public User AuthenticateUsername(string userId)
+    // {
+    //   try
+    //   {
+    //     return _us.Get(userId);
+    //   }
+    //   catch(NullReferenceException)
+    //   {
+    //     return null;
+    //   }           
+    // }
   }
 }

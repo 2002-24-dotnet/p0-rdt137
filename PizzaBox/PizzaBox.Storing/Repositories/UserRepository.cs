@@ -20,6 +20,11 @@ namespace PizzaBox.Storing.Repositories
       return _db.User.SingleOrDefault(u => u.UserId == id);
     }
 
+    public User Check(string userId, string password)
+    {
+      return _db.User.Where(u => u.UserId == userId).SingleOrDefault(u => u.Password == password);
+    }
+
     public bool Post(User user)
     {
       _db.User.Add(user);

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PizzaBox.Storing.Migrations
 {
-    public partial class migration6 : Migration
+    public partial class migration11 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,6 +66,8 @@ namespace PizzaBox.Storing.Migrations
                 {
                     OrderId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Cost = table.Column<decimal>(nullable: false),
+                    OrderDate = table.Column<DateTime>(nullable: false),
                     Location1 = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: true)
                 },
@@ -124,9 +127,9 @@ namespace PizzaBox.Storing.Migrations
                 columns: new[] { "TypeId", "Cost", "Crust", "Name" },
                 values: new object[,]
                 {
-                    { 1L, 8.00m, "Crust1", "PepPizza" },
-                    { 2L, 7.00m, "Crust121", "CheesePizza" },
-                    { 3L, 10.00m, "Crust432", "PinBacPizza" }
+                    { 1L, 8.50m, "Cheese Filled Crust", "Pepperoni Pizza" },
+                    { 2L, 7.00m, "Thin Crust", "Cheese Pizza" },
+                    { 3L, 10.25m, "Thick Crust", "Pineapple Bacon Pizza" }
                 });
 
             migrationBuilder.InsertData(
@@ -134,9 +137,9 @@ namespace PizzaBox.Storing.Migrations
                 columns: new[] { "SizeId", "Cost", "Name" },
                 values: new object[,]
                 {
-                    { 1L, 12.00m, "Large" },
+                    { 1L, 8.00m, "Small" },
                     { 2L, 10.00m, "Medium" },
-                    { 3L, 8.00m, "Small" }
+                    { 3L, 12.00m, "Large" }
                 });
 
             migrationBuilder.InsertData(
@@ -145,7 +148,8 @@ namespace PizzaBox.Storing.Migrations
                 values: new object[]
                 {
                     "Cooper",
-                    "S West St"
+                    "S West St",
+                    "W Mitchell St"
                 });
 
             migrationBuilder.InsertData(
@@ -154,7 +158,8 @@ namespace PizzaBox.Storing.Migrations
                 values: new object[,]
                 {
                     { "user1", "123", "Customer" },
-                    { "user2", "234", "Admin" }
+                    { "user2", "234", "Admin" },
+                    { "user3", "345", "Customer" }
                 });
 
             migrationBuilder.CreateIndex(

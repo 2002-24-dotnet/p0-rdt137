@@ -9,47 +9,64 @@ using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
 {
-  class Program
+  class Program : RepositorySingleton
   {
+    private static PizzaBoxDbContext db = new PizzaBoxDbContext();
+    private static PizzaBoxDbContext _db = db.Instance;
     public static int[] pizzaSelect = new int[] {0, 0, 0};
     public static string[] pizzaType = new string[] {"Pep", "Cheese", "PinBac"};
     
     static void Main(string[] args)
-    {
-      //PostAllPizzas();
-      //GetAllPizzas();
-      //GetSizes();
-      //GetUsernames();
-      //GetLocations();
-      // GetLocations();
-      // Console.WriteLine(loc[1]);
-      
-      // var userType = Login();
-      // if(userType == u)
-      // {
-        // **
-      // }
+    {      
+      string userType = "";
+      string user = "";
+      userType = Login(out user, userType);
 
-      UI.CustomerUI();
-      }        
+      if(userType == "Customer")
+        UI.CustomerUI(user);
+      if(userType == "Admin")
+        UI.AdminUI();   
+
     }
 
-    // private static void GetAllPizzas()
-    // {
-    //   foreach (var p in _ps.Get())
-    //   {
-    //     Console.WriteLine(p.ToString());
-    //   }
-    // }
+    public static string Login(out string user, string userType)
+    {
+      string username = null;
+      string password = null;
+      while(_us.Get(username) is null)
+      {
+        Console.WriteLine("Enter username:");
+        Console.WriteLine("(Ctrl + C) to exit");
+        username = Console.ReadLine();        
+      }
+      while(_us.Check(username, password) is null)
+      {
+        Console.WriteLine("\nEnter password:");
+        Console.WriteLine("(Ctrl + C) to exit");
+        password = Console.ReadLine();
+      }
 
-    // private static void PostAllPizzas()
-    // {
-    //   var pizzaType = _pt.Get(); // _db1
-    //   var sizes = _sz.Get(); // _db2
-    //   // order
-
-    //   _ps.Update(pizzaType[0], sizes[0]);
-    // }
-
-
+      user = username;
+     
+      userType = (from u in _db.User
+                   where u.UserId == username
+                   select u.UserType).FirstOrDefault();
+      return userType;
+    }    
+  }
 }
+      
+      
+      
+      
+      // var sizes = new List<Size>();
+      // using (_db)
+      // {       
+      //   sizes = (from s in _db.Size
+      //              where s.Cost < 11
+      //              select s).ToList();
+      // }
+      // foreach (var record in sizes)
+      // {
+      //   Console.WriteLine(record);
+      // }

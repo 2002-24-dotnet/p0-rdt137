@@ -1,4 +1,5 @@
 using PizzaBox.Client.UserInterface;
+using PizzaBox.Storing.Databases;
 using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client.Singletons
@@ -12,7 +13,6 @@ namespace PizzaBox.Client.Singletons
     protected static readonly OrderRepository _o = new OrderRepository();
     protected static readonly UserRepository _us = new UserRepository();
     protected static readonly StoreRepository _st = new StoreRepository();
-
     protected static readonly PizzeriaSingleton _ps = PizzeriaSingleton.Instance;
   }
 }

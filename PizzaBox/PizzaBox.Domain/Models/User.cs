@@ -10,15 +10,10 @@ namespace PizzaBox.Domain.Models
     public string UserType { get; set; }
     
     public List<Order> Orders { get; set; }
-    
-    public string ToString(int i)
+
+    public override string ToString()
     {
-      if(i == 1)
-        return $"{UserId ?? "N/A"}";
-      else if(i == 2)
-        return $"{Password ?? "N/A"}";
-      else
-        return String.Empty;
+      return $"{UserId}";
     }
   }
 }
